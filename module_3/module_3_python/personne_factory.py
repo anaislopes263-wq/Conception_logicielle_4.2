@@ -1,14 +1,9 @@
 """
-Pattern Factory Method
------------------------
+Pattern de création: Factory Method
+
 PersonneFactory : crée des objets Etudiant ou Enseignant
 sans exposer la logique d'instanciation au client.
 
-Usage :
-    e = PersonneFactory.creer("etudiant", nom="Alice", age=20,
-                              numero_etudiant="E001", moyenne=14.0)
-    p = PersonneFactory.creer("enseignant", nom="M. Dupont", age=45,
-                              matiere="Maths", salaire=3500.0)
 """
 
 from etudiant import Etudiant
@@ -26,16 +21,6 @@ class PersonneFactory:
         """
         Crée et retourne une instance selon le type demandé.
 
-        Paramètres
-        ----------
-        type_personne : str
-            "etudiant" ou "enseignant" (insensible à la casse)
-        **kwargs :
-            Arguments passés au constructeur de la classe cible.
-
-        Lève
-        ----
-        ValueError si le type est inconnu.
         """
         type_lower = type_personne.strip().lower()
 
