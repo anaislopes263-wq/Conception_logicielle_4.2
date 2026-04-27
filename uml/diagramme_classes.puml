@@ -1,0 +1,82 @@
+@startuml diagramme_classes
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+skinparam class {
+    BackgroundColor #F8F8FF
+    BorderColor #534AB7
+    ArrowColor #444
+}
+
+abstract class Personne {
+    - nom : String
+    - age : int
+    --
+    + {abstract} sePresenter() : String
+    + getNom() : String
+    + getAge() : int
+}
+
+class Etudiant {
+    - numEtudiant : String
+    - moyenne : double
+    - cours : List<Cours>
+    - notes : List<Double>
+    - strategy : TriStrategy
+    --
+    + ajouterNote(double)
+    + getMention() : String
+    + setTriStrategy(TriStrategy)
+    + sePresenter() : String
+}
+
+class Enseignant {
+    - matiere : String
+    --
+    + getMatiere() : String
+    + sePresenter() : String
+}
+
+class Cours {
+    - nomCours : String
+    - professeur : String
+    --
+    + getNomCours() : String
+    + getProfesseur() : String
+}
+
+class Main {
+    + {static} main(String[]) : void
+    --
+    - demoFactory()
+    - demoDecorator()
+    - demoAdapter()
+    - demoStrategy()
+    - demoObserver()
+}
+
+interface IReportGenerator {
+    + {abstract} generer(Etudiant) : String
+}
+
+class ConsoleReport {
+    + generer(Etudiant) : String
+}
+
+class JsonReport {
+    + generer(Etudiant) : String
+}
+
+Personne <|-- Etudiant
+Personne <|-- Enseignant
+
+Etudiant "1" o-- "0..*" Cours
+
+Etudiant ..> IReportGenerator : <<uses>>
+
+IReportGenerator <|.. ConsoleReport
+IReportGenerator <|.. JsonReport
+
+
+Main ..> IReportGenerator   : <<uses>>
+Main ..> Etudiant           : <<uses>>
+@enduml
